@@ -1,0 +1,327 @@
+body {
+  background-color: #111820;
+}
+
+.home-hero {
+  text-align: center;
+  padding: 48px 16px 36px;
+}
+
+.home-hero h1 {
+  font-weight: 750;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+}
+
+.home-hero p {
+  color: #b8c6d4;
+    font-size: 1.1rem;
+  margin-top: 16px;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 1100px;
+  margin: 0 auto 40px;
+}
+
+.home-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 190px;
+  padding: 24px 12px;
+  white-space: normal;
+  background: #202c39;
+    border: 1px solid #35485a;
+  border-radius: 16px;
+  color: white;
+  transition: transform 0.15s, border-color 0.15s;
+}
+
+.home-card:hover {
+  transform: translateY(-3px);
+  border-color: #4da3ff;
+    color: white;
+}
+
+.home-card .bi {
+  width: 42px;
+  height: 42px;
+  color: #4da3ff;
+}
+
+.home-card strong {
+  font-size: 1.1rem;
+}
+
+.home-card span {
+  color: #b8c6d4;
+    font-size: 0.9rem;
+}
+
+.home-card-locked {
+  opacity: 0.5;
+}
+
+.home-card-locked .bi {
+  color: #a3aab3;
+}
+
+@media (max-width: 767px) {
+  .home-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  
+  .home-card {
+    min-height: 155px;
+    padding: 16px 8px;
+  }
+  
+  .home-card strong {
+    font-size: 0.95rem;
+  }
+  
+  .home-card span {
+    font-size: 0.8rem;
+  }
+  
+  .home-hero {
+    padding: 28px 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  .home-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Main navigation bar */
+.navbar {
+  background-color: #182532 !important;
+  border-bottom: 1px solid #35485a;
+}
+
+/* Navigation links */
+.navbar .nav-link {
+  color: #b8c6d4 !important;
+}
+
+/* Hover */
+.navbar .nav-link:hover {
+  color: #ffffff !important;
+}
+
+/* Selected page */
+.navbar .nav-link.active {
+  color: #4da3ff !important;
+  font-weight: 600;
+}
+
+/* App title */
+.navbar-brand {
+  color: #ffffff !important;
+  font-weight: 700;
+}
+
+/* Upcoming Games */
+
+.games-page {
+  padding-top: 20px;
+}
+
+.games-subtitle {
+  color: #aab8c6;
+  margin-bottom: 24px;
+}
+
+/* Horizontal division tabs */
+
+.division-tabs {
+  margin-bottom: 28px;
+}
+
+.division-tabs .shiny-options-group {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 0 12px;
+}
+
+.division-tabs .radio-inline {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  margin: 0;
+  padding: 9px 14px;
+  border: 1px solid #35485a;
+  border-radius: 8px;
+  background: #202c39;
+  color: #c5d3e0;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.division-tabs .radio-inline:has(input:checked) {
+  background: #245b8f;
+  border-color: #4da3ff;
+  color: white;
+}
+
+.division-tabs input[type="radio"] {
+  display: none;
+}
+
+/* Division sections */
+
+.division-section {
+  margin-bottom: 28px;
+}
+
+.division-section h4 {
+  color: #4da3ff;
+  margin-bottom: 14px;
+}
+
+.matchup-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+/* Matchup cards */
+
+.matchup-card {
+  background: #202c39;
+  border: 1px solid #35485a;
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.matchup-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: #aab8c6;
+  font-size: 0.85rem;
+  margin-bottom: 18px;
+}
+
+.matchup-status {
+  color: #4da3ff;
+  white-space: nowrap;
+}
+
+.matchup-teams {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+}
+
+.matchup-team {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 5px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.matchup-team small {
+  color: #aab8c6;
+}
+
+.matchup-score {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: white;
+  white-space: nowrap;
+}
+
+.matchup-footer {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #aab8c6;
+}
+
+/* Off-day games */
+
+.offday-section {
+  border-top: 1px solid #35485a;
+  padding-top: 24px;
+  margin-top: 30px;
+}
+
+.offday-section h3 {
+  color: #e2eaf2;
+}
+
+.offday-section > p {
+  color: #aab8c6;
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+  .matchup-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .matchup-card {
+    padding: 14px;
+  }
+}
+
+/* Team statistics */
+
+.team-record {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #e2eaf2;
+  margin-top: 8px;
+}
+
+.team-goals {
+  font-size: 0.8rem;
+  color: #aab8c6;
+  margin-top: 4px;
+}
+
+/* Head-to-head */
+
+.matchup-h2h {
+  margin-top: 18px;
+  padding: 12px;
+  background: #182532;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.h2h-title {
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: #aab8c6;
+  margin-bottom: 8px;
+}
+
+.h2h-record {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  font-weight: 600;
+}
+
+.h2h-record span {
+  color: #8295a8;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
