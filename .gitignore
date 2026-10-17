@@ -1,0 +1,7 @@
+.Renviron
+.Renviron.*
+.Rprofile
+.RData
+.Rhistory
+.Rproj.user/
+renv/library/
