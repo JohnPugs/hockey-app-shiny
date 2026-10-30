@@ -352,3 +352,52 @@ get_matchup_stats <- function(pool) {
     "
   )
 }
+
+get_game_predictions <- function(pool) {
+  
+  sql <- "
+    WITH latest_predictions AS (
+      SELECT DISTINCT ON (game_id)
+        *
+      FROM public.game_predictions
+      ORDER BY
+        game_id,
+        snapshot_date DESC,
+        predicted_at DESC,
+        id DESC
+    )
+
+    SELECT
+      gp.game_id,
+      gp.snapshot_date,
+      gp.prediction_model_version,
+
+      gp.p_home_win,
+      gp.p_tie,
+      gp.p_away_win,
+
+      h.eto_100 AS home_eto_100,
+      h.etd_100 AS home_etd_100,
+      h.rating_status AS home_rating_status,
+
+      a.eto_100 AS away_eto_100,
+      a.etd_100 AS away_etd_100,
+      a.rating_status AS away_rating_status
+
+    FROM latest_predictions gp
+
+    LEFT JOIN public.team_rating_snapshots h
+      ON h.season_id = gp.season_id
+      AND h.division_id = gp.division_id
+      AND h.team_id = gp.home_team_id
+      AND h.snapshot_date = gp.snapshot_date
+
+    LEFT JOIN public.team_rating_snapshots a
+      ON a.season_id = gp.season_id
+      AND a.division_id = gp.division_id
+      AND a.team_id = gp.away_team_id
+      AND a.snapshot_date = gp.snapshot_date
+  "
+  
+  DBI::dbGetQuery(pool, sql)
+}
