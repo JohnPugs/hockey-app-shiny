@@ -5,6 +5,7 @@ library(bsicons)
 source("R/db.R")
 source("R/mod_home.R")
 source("R/mod_games.R")
+source("R/mod_teams.R")
 
 ui <- page_navbar(
   title = "Beer League IQ",
@@ -17,12 +18,78 @@ ui <- page_navbar(
     primary = "#4DA3FF"
   ),
   
+  # header = tags$head(
+  #   tags$link(
+  #     rel = "stylesheet",
+  #     type = "text/css",
+  #     href = "styles.css"
+  #   )
+  # ),
+  
   header = tags$head(
     tags$link(
       rel = "stylesheet",
       type = "text/css",
       href = "styles.css"
-    )
+    ),
+    tags$script(HTML("
+    document.addEventListener('DOMContentLoaded', function() {
+  
+      const navbar = document.querySelector(
+        'nav.navbar.navbar-static-top'
+      );
+  
+      if (!navbar) return;
+      
+      const brand = navbar.querySelector('.navbar-brand');
+
+      if (brand) {
+        brand.classList.add('brand-home-link');
+        brand.style.cursor = 'pointer';
+        brand.setAttribute('role', 'button');
+        brand.setAttribute('tabindex', '0');
+        brand.setAttribute('aria-label', 'Return to Beer League IQ home');
+      
+        function goHome() {
+          Shiny.setInputValue('brand_home', Date.now(), {
+            priority: 'event'
+          });
+        }
+      
+        brand.addEventListener('click', goHome);
+      
+        brand.addEventListener('keydown', function(event) {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            goHome();
+          }
+        });
+      }
+  
+      navbar.classList.add('fixed-top');
+  
+      // Create a spacer immediately after the navbar.
+      let spacer = document.getElementById('navbar-spacer');
+  
+      if (!spacer) {
+        spacer = document.createElement('div');
+        spacer.id = 'navbar-spacer';
+        navbar.insertAdjacentElement('afterend', spacer);
+      }
+  
+      function updateNavbarSpacing() {
+        spacer.style.height =
+          Math.ceil(navbar.getBoundingClientRect().height) + 'px';
+      }
+  
+      updateNavbarSpacing();
+  
+      const observer = new ResizeObserver(updateNavbarSpacing);
+      observer.observe(navbar);
+  
+      window.addEventListener('resize', updateNavbarSpacing);
+    });
+  "))
   ),
   
   nav_panel(
@@ -52,7 +119,7 @@ ui <- page_navbar(
   nav_panel(
     "Team Statistics",
     value = "teams",
-    h2("Team Statistics")
+    mod_teams_ui("teams")
   ),
   
   nav_panel(
@@ -114,6 +181,14 @@ server <- function(input, output, session) {
     }
   }
   
+  observeEvent(input$brand_home, {
+    bslib::nav_select(
+      id = "page",
+      selected = "home",
+      session = session
+    )
+  })
+  
   mod_home_server(
     "home",
     signed_in = signed_in,
@@ -122,6 +197,11 @@ server <- function(input, output, session) {
   
   mod_games_server(
     "games",
+    pool = db_pool
+  )
+  
+  mod_teams_server(
+    "teams",
     pool = db_pool
   )
   

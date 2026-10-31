@@ -401,3 +401,125 @@ get_game_predictions <- function(pool) {
   
   DBI::dbGetQuery(pool, sql)
 }
+
+get_team_stats <- function(pool) {
+  
+  sql <- "
+    SELECT DISTINCT ON (
+      season_id,
+      division_id,
+      team_id
+    )
+      season_id,
+      division_id,
+      team_id,
+      division_name,
+      team_name,
+      snapshot_date,
+
+      gp,
+      wins,
+      losses,
+      ties,
+      win_pct,
+
+      gf,
+      ga,
+      goal_diff,
+      gf_pg,
+      ga_pg,
+      gd_pg,
+
+      last5_gp,
+      last5_wins,
+      last5_losses,
+      last5_ties,
+      last5_win_pct,
+      last5_gf_pg,
+      last5_ga_pg,
+
+      eto_100,
+      etd_100,
+      rating_status,
+      model_version
+
+    FROM public.team_rating_snapshots
+
+    ORDER BY
+      season_id,
+      division_id,
+      team_id,
+      snapshot_date DESC,
+      id DESC
+  "
+  
+  DBI::dbGetQuery(pool, sql)
+}
+
+get_team_rating_history <- function(pool, season_id, division_id, team_id) {
+  
+  sql <- "
+    SELECT
+      snapshot_date,
+      eto_100,
+      etd_100,
+      rating_status,
+      gp,
+      wins,
+      losses,
+      ties,
+      gf,
+      ga
+    FROM public.team_rating_snapshots
+    WHERE season_id = $1
+      AND division_id = $2
+      AND team_id = $3
+    ORDER BY snapshot_date
+  "
+  
+  DBI::dbGetQuery(
+    pool,
+    sql,
+    params = list(
+      as.numeric(season_id),
+      as.numeric(division_id),
+      as.numeric(team_id)
+    )
+  )
+}
+
+get_division_rating_history <- function(pool, season_id, division_id) {
+  
+  sql <- "
+    SELECT
+      season_id,
+      division_id,
+      team_id,
+      team_name,
+      snapshot_date,
+      gp,
+      wins,
+      losses,
+      ties,
+      win_pct,
+      gf,
+      ga,
+      gf_pg,
+      ga_pg,
+      eto_100,
+      etd_100
+    FROM public.team_rating_snapshots
+    WHERE season_id = $1
+      AND division_id = $2
+    ORDER BY snapshot_date, team_id
+  "
+  
+  DBI::dbGetQuery(
+    pool,
+    sql,
+    params = list(
+      as.numeric(season_id),
+      as.numeric(division_id)
+    )
+  )
+}
