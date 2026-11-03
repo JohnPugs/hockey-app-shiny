@@ -351,3 +351,33 @@ nav.navbar.navbar-static-top.fixed-top {
   width: 100%;
 }
 
+/* Player statistics loading indicator */
+
+.player-loading {
+  max-width: 440px;
+  margin: 48px auto;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.player-loading-icon {
+  font-size: 2.5rem;
+  color: #4DA3FF;
+  margin-bottom: 18px;
+}
+
+.player-loading h5 {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.player-loading p {
+  color: #aab4c0;
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+.player-loading .progress {
+  background-color: #2b3542;
+  border-radius: 6px;
+}

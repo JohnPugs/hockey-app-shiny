@@ -523,3 +523,59 @@ get_division_rating_history <- function(pool, season_id, division_id) {
     )
   )
 }
+
+
+# ============================================================
+# Player Statistics
+# ============================================================
+
+get_player_rankings <- function(pool) {
+  
+  sql <- "
+    SELECT
+      r.player_id,
+      r.player_name,
+      r.team_id,
+      t.team_name,
+      r.season_id,
+      r.division_id,
+      r.division_name,
+      r.competitive_tier,
+
+      r.gp,
+      r.goals,
+      r.assists,
+      r.points,
+
+      r.gpg,
+      r.apg,
+      r.ppg,
+
+      r.completed_team_games,
+      r.attendance_pct,
+
+      r.adjusted_ppg,
+      r.pqr,
+      r.projected_ppg,
+      r.career_gp,
+      r.new_player,
+      r.provisional,
+
+      r.roster_status,
+      r.model_version,
+      r.calculated_at
+
+    FROM public.vw_player_rankings r
+
+    LEFT JOIN public.teams t
+      ON r.team_id = t.id
+
+    ORDER BY
+      r.division_name,
+      t.team_name,
+      r.player_name
+  "
+  
+  DBI::dbGetQuery(pool, sql)
+}
+
