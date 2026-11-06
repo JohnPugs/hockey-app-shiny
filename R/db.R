@@ -579,3 +579,28 @@ get_player_rankings <- function(pool) {
   DBI::dbGetQuery(pool, sql)
 }
 
+
+
+# ============================================================
+# Leaderboard: Model Performance
+# ============================================================
+
+get_model_performance <- function(pool) {
+  
+  sql <- "
+    SELECT
+      mp.*
+    FROM public.vw_model_performance mp
+    JOIN public.seasons s
+      ON s.id = mp.season_id
+    WHERE s.season_name = 'Current'
+      AND mp.prediction_model_version =
+          'game_multinomial_combined_v1'
+    LIMIT 1
+  "
+  
+  DBI::dbGetQuery(pool, sql)
+}
+
+
+

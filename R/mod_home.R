@@ -22,7 +22,7 @@ mod_home_server <- function(id, signed_in, navigate) {
     
     cards <- data.frame(
       page = c(
-        "games", "picks", "leaderboards",
+        "games", "picks", "leaderboard",
         "players", "teams", "penalties"
       ),
       title = c(
