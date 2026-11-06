@@ -23,12 +23,12 @@ mod_home_server <- function(id, signed_in, navigate) {
     cards <- data.frame(
       page = c(
         "games", "picks", "leaderboards",
-        "players", "teams", "referees"
+        "players", "teams", "penalties"
       ),
       title = c(
         "Upcoming Games", "Make Your Picks", "Leaderboards",
-        "Player Statistics", "Team Statistics",
-        "Referee Statistics"
+        "Players", "Teams",
+        "Penalties"
       ),
       icon = c(
         "calendar-event", "bullseye", "trophy",

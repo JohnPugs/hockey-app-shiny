@@ -7,6 +7,7 @@ source("R/mod_home.R")
 source("R/mod_games.R")
 source("R/mod_teams.R")
 source("R/mod_players.R")
+source("R/mod_penalties.R")
 
 ui <- page_navbar(
   title = "Beer League IQ",
@@ -112,21 +113,21 @@ ui <- page_navbar(
   ),
   
   nav_panel(
-    "Player Statistics",
+    "Players",
     value = "players",
     mod_players_ui("players")
   ),
   
   nav_panel(
-    "Team Statistics",
+    "Teams",
     value = "teams",
     mod_teams_ui("teams")
   ),
   
   nav_panel(
-    "Referee Statistics",
-    value = "referees",
-    h2("Referee Statistics")
+    "Penalties",
+    value = "penalties",
+    mod_penalties_ui("penalties")
   ),
   
   nav_spacer(),
@@ -215,6 +216,12 @@ server <- function(input, output, session) {
     "players",
     pool = db_pool,
     active = shiny::reactive(input$page == "players")
+  )
+  
+  mod_penalties_server(
+    "penalties",
+    pool = db_pool,
+    active = shiny::reactive(input$page == "penalties")
   )
   
   observeEvent(input$auth_toggle, {
