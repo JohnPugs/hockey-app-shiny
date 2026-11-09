@@ -8,7 +8,9 @@ mod_home_ui <- function(id) {
       shiny::p(
         "Beating the model is one thing.",
         shiny::tags$br(),
-        "But can you beat other players?"
+        "But can you beat other players?",
+        shiny::tags$br(),
+        "Sign up and play today!"
       )
     ),
     
