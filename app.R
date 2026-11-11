@@ -11,6 +11,8 @@ source("R/mod_teams.R")
 source("R/mod_players.R")
 source("R/mod_penalties.R")
 source("R/mod_leaderboard.R")
+source("R/mod_report_error.R")
+source("R/report_email.R")
 
 ui <- page_navbar(
   title = "Beer League IQ",
@@ -223,6 +225,13 @@ ui <- page_navbar(
   ),
   
   nav_spacer(),
+  
+  nav_panel(
+    title = "Report Error",
+    value = "report_error",
+    icon = bsicons::bs_icon("flag"),
+    mod_report_error_ui("report_error")
+  ),
   
   nav_item(
     actionButton(
@@ -957,6 +966,8 @@ server <- function(input, output, session) {
     "leaderboard",
     active = shiny::reactive(input$page == "leaderboard")
   )
+  
+  mod_report_error_server("report_error")
   
   observeEvent(input$auth_toggle, {
     

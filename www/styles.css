@@ -381,3 +381,74 @@ nav.navbar.navbar-static-top.fixed-top {
   background-color: #2b3542;
   border-radius: 6px;
 }
+
+
+/* ============================================================
+   Report Error page: form styling
+   ============================================================ */
+
+.report-error-page {
+  --report-field-bg: #273442;
+  --report-field-border: #435568;
+  --report-field-text: #edf3f8;
+}
+
+/* Text fields, dropdowns, dates, and text areas */
+
+.report-error-page .form-control,
+.report-error-page .form-select,
+.report-error-page select {
+  background-color: var(--report-field-bg) !important;
+  color: var(--report-field-text) !important;
+  border: 1px solid var(--report-field-border) !important;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+/* Dropdown option colors */
+
+.report-error-page select option {
+  background-color: #273442;
+  color: #edf3f8;
+}
+
+/* Placeholder text */
+
+.report-error-page .form-control::placeholder {
+  color: #aab8c6;
+  opacity: 1;
+}
+
+/* Active field */
+
+.report-error-page .form-control:focus,
+.report-error-page .form-select:focus,
+.report-error-page select:focus {
+  background-color: #304254 !important;
+  color: #ffffff !important;
+  border-color: #4da3ff !important;
+  box-shadow: 0 0 0 0.2rem rgba(77, 163, 255, 0.15);
+}
+
+/* Field labels */
+
+.report-error-page .control-label,
+.report-error-page .form-label {
+  color: #d7e2ec;
+  font-weight: 500;
+}
+
+/* Calendar picker */
+
+.report-error-page .input-group-text {
+  background-color: #304254;
+  color: #d7e2ec;
+  border-color: #435568;
+}
+
+/* Autofill */
+
+.report-error-page input:-webkit-autofill {
+  -webkit-text-fill-color: #edf3f8;
+  -webkit-box-shadow: 0 0 0 1000px #273442 inset;
+}
